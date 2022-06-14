@@ -4,12 +4,14 @@ import com.mediscreen.person.model.Person;
 import com.mediscreen.person.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import com.mediscreen.person.exception.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 import java.util.List;
 
-@Controller
+@RestController
 public class PersonController {
 
     private final PersonService personService;
@@ -33,7 +35,13 @@ public class PersonController {
      */
     @PostMapping("/person")
     public ResponseEntity<Person> createPerson(@RequestBody Person person) throws ConflictException {
-        return null;
+        Person createdPerson = personService.createPerson(person);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(createdPerson.getId())
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     /**
@@ -50,7 +58,8 @@ public class PersonController {
      */
     @PutMapping("/person")
     public  ResponseEntity<Person>  updatePerson(@RequestBody Person person) throws NotFoundException {
-        return null;
+        personService.updatePerson(person);
+        return ResponseEntity.ok().build();
     }
 
     /**
@@ -65,7 +74,8 @@ public class PersonController {
      */
     @DeleteMapping("/person/{id}")
     public ResponseEntity<String> deletePerson(@PathVariable("id") final Integer id) throws NotFoundException {
-      return null;
+        personService.deletePersonById(id);
+        return ResponseEntity.noContent().build();
     }
 
     /**
@@ -78,6 +88,11 @@ public class PersonController {
      */
     @GetMapping("/persons")
     public ResponseEntity<List<Person>> getPersons() {
-        return null;
+        List<Person> personList = personService.getPersons();
+        if(personList.isEmpty()){
+            return ResponseEntity.ok().build();
+        } else {
+            return  ResponseEntity.ok(personList);
+        }
     }
 }

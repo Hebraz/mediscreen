@@ -1,5 +1,6 @@
 package com.mediscreen.person.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Calendar;
 @Entity
 @Getter
 @Setter
+@Builder
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,4 +36,17 @@ public class Person {
 
     @Size(max=11, message = "Sex must be at most 11 characters in length")
     private String sex;
+
+    public Person() {
+    }
+
+    public Person(Integer id, String familyName, String givenName, Calendar birthdate, String address, String phone, String sex) {
+        this.id = id;
+        this.familyName = familyName;
+        this.givenName = givenName;
+        this.birthdate = birthdate;
+        this.address = address;
+        this.phone = phone;
+        this.sex = sex;
+    }
 }
