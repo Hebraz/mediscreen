@@ -12,6 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 public class PersonController {
 
     private final PersonService personService;

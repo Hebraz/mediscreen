@@ -1,0 +1,36 @@
+.person-card{
+    width: 35%;
+    margin: auto;
+
+    display: flex;
+    justify-content:space-between;
+
+    border:0;
+    border-bottom:  1px solid rgb(171, 171, 171);
+
+    padding: 0.5rem 3rem 0.5em 3rem;
+        ul {
+        list-style-type: none;
+        padding: 0; /* Remove padding */
+        margin: 0; /* Remove margins */
+    }
+
+    li:first-child {
+        color: rgb(80, 80, 80);
+        font-weight: bold;
+        font-size: larger;
+
+    }
+    li:first-child:hover{
+        color: rgb(132, 132, 132);
+    }
+    li:nth-child(2) {
+        margin-top: 0.5rem;
+    }
+    button{
+        margin-right: 1rem;
+    }
+    
+}
+
+
