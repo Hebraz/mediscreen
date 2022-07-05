@@ -23,8 +23,8 @@
     </select>
 
     <div class="button-layout">
-        <button (click)="onCancel()">Cancel</button>
-        <button type="submit">{{ action }}</button>
+        <button (click)="onCancel(person.id)">Cancel</button>
+        <button type="submit">{{ action === 'edit' ? 'Update' : 'Create' }}</button>
     </div>
 
 </form>

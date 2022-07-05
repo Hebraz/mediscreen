@@ -1,17 +1,11 @@
-    <div *ngIf="deleted==false" class="person-card">
+    <div  class="person-card" *ngIf="!deleted">
         <ul>
-            <li  (click)="onToggleDetails()"><strong>{{ person.familyName }} {{ person.givenName }}</strong></li>
-            <li *ngIf="areDetailsShown" ></li>
-            <li *ngIf="areDetailsShown" >{{ person.birthdate | date: 'dd/MM/yy' }} </li>
-            <li *ngIf="areDetailsShown" >{{ person.address }}</li>
-            <li *ngIf="areDetailsShown" >{{ person.phone }}</li>
-            <li *ngIf="areDetailsShown" >{{ person.sex }}</li>
+            <li><strong>{{ person.familyName }} {{ person.givenName }}</strong></li>
         </ul>
         <div>
-            <button (click)="onEdit()">Edit</button>
-            <button (click)="onDelete()">Delete</button>
+            <button (click)="onView(person.id)">View</button>
+            <button (click)="onDelete(person.id)">Delete</button>
         </div>
-
     </div>
 
 

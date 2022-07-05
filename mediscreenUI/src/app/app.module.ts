@@ -10,6 +10,11 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { PersonEditionComponent } from './person-edition/person-edition.component';
 import { FormsModule } from '@angular/forms';
+import { NoteComponent } from './note/note.component';
+import { PersonDetailsComponent } from './person-details/person-details.component';
+import { NoteEditionComponent } from './note-edition/note-edition.component';
+import { PersonCreationComponent } from './person-creation/person-creation.component';
+import { PersonUpdateComponent } from './person-update/person-update.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +23,12 @@ import { FormsModule } from '@angular/forms';
     PersonListComponent,
     HeaderComponent,
     HomeComponent,
-    PersonEditionComponent
+    PersonEditionComponent,
+    NoteComponent,
+    PersonDetailsComponent,
+    NoteEditionComponent,
+    PersonCreationComponent,
+    PersonUpdateComponent
   ],
   imports: [
     BrowserModule,

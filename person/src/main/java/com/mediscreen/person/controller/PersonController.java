@@ -10,9 +10,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@CrossOrigin(maxAge = 3600)
+//@CrossOrigin(maxAge = 3600)
 public class PersonController {
 
     private final PersonService personService;
@@ -77,6 +78,24 @@ public class PersonController {
     public ResponseEntity<String> deletePerson(@PathVariable("id") final Integer id) throws NotFoundException {
         personService.deletePersonById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    /**
+     * Get person by id.
+     *
+     * @return  HTTP response with :
+     *            - person
+     *            - Http status code set to "200-Ok"
+     *
+     */
+    @GetMapping("/person/{id}")
+    public ResponseEntity<Person> getPerson(@PathVariable("id") final Integer id) {
+        Optional<Person> personOptional = personService.getPerson(id);
+        if(personOptional.isPresent()){
+            return ResponseEntity.ok(personOptional.get());
+        } else {
+            return  ResponseEntity.notFound().build();
+        }
     }
 
     /**

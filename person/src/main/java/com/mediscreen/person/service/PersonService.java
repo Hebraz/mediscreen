@@ -4,6 +4,7 @@ import com.mediscreen.person.exception.*;
 import com.mediscreen.person.model.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PersonService {
     /**
@@ -28,6 +29,14 @@ public interface PersonService {
      * @throws NotFoundException when trying to delete a non existent person
      */
     void deletePersonById(int id) throws NotFoundException;
+
+
+    /**
+     * Get a person
+     * @param id of the person
+     * @return optional of Person
+     */
+    public Optional<Person> getPerson(int id);
 
     /**
      * Gets person list from database.

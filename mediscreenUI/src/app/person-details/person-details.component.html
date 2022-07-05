@@ -1,0 +1,26 @@
+<div id="detail">
+    <div *ngIf="person$ | async as person" class="person-detailed">
+        <ul>
+            <li><strong>{{ person.familyName }} {{ person.givenName }}</strong></li>
+            <li></li>
+            <li>{{ person.birthdate | date: 'dd/MM/yy' }} </li>
+            <li>{{ person.address }}</li>
+            <li>{{ person.phone }}</li>
+            <li>{{ person.sex }}</li>
+        </ul>
+        <div>
+            <button (click)="onEdit(person.id)">Edit</button>
+            <button (click)="onDelete(person.id)">Delete</button>
+        </div>
+    </div>
+    <div class="MedicalNotes">
+        <h2>Medical notes</h2>
+        <form>
+            <textarea name="description"   [(ngModel)]="description"></textarea>
+            <button (click)="onCreateNote()">Create</button>
+        </form>
+
+    </div>
+    <app-note *ngFor="let note of note$ | async" [note]="note"></app-note>
+    
+</div>

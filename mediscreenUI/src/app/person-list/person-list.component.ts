@@ -21,6 +21,6 @@ export class PersonListComponent implements OnInit {
   }
 
   onCreate(){
-    this.router.navigate(['/person'], { state: {customData: new Person(0, "","",new Date(0),"","","")}});
+    this.router.navigateByUrl('/person/create');
   }
 }

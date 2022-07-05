@@ -1,0 +1,10 @@
+<div class="note">
+    <p><em>{{ note.date |  date: 'dd/MM/yy'}}</em></p>
+    <p *ngIf="!editMode" >{{ note.description }} </p>
+    <textarea *ngIf="editMode" name="unsavedNote"   [(ngModel)]="unsavedNote"></textarea>
+    <div>
+        <button *ngIf="!editMode" (click)="onEdit()">Edit</button>
+        <button *ngIf="editMode" (click)="onSave()">Save</button>
+        <button *ngIf="editMode" (click)="onCancel()">Cancel</button>
+    </div>
+</div>

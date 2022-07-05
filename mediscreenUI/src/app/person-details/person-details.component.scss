@@ -1,4 +1,13 @@
-.person-card{
+.MedicalNotes{
+    max-width: 30%;
+    margin: auto;
+
+    textarea{
+        min-width: 100%;
+        min-height: 100px;
+    }
+}
+.person-detailed{
     width: 35%;
     margin: auto;
 
@@ -23,6 +32,9 @@
     }
     li:first-child:hover{
         color: rgb(132, 132, 132);
+    }
+    li:nth-child(2) {
+        margin-top: 0.5rem;
     }
     button{
         margin-right: 1rem;

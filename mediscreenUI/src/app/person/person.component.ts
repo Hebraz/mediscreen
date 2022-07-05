@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Person } from '../models/person.model';
 import { PersonService } from '../services/person.service';
 
@@ -11,25 +12,27 @@ import { PersonService } from '../services/person.service';
 export class PersonComponent implements OnInit {
 
   @Input() person!: Person;
-  
-  public areDetailsShown!: boolean;
+
   public deleted!: boolean;
-  constructor(private personService: PersonService, private router : Router){ }
+  constructor(private personService: PersonService, 
+                private route: ActivatedRoute,
+                private router : Router){ }
 
   ngOnInit(): void {
-    this.areDetailsShown = false;
+    const id = +this.route.snapshot.params['id'];
     this.deleted=false;
   }
 
-  onToggleDetails(): void{
-    this.areDetailsShown = !this.areDetailsShown;
-  }
+  onDelete(id:number): void{
+    
+    this.personService.delete(id).subscribe(() => {
+      this.deleted=true;
+      this.router.navigateByUrl('/persons');
+    }   );
+  
+   }
 
-  onDelete(): void{
-    this.personService.delete(this.person.id).subscribe(() => this.deleted = true);
-  }
-
-  onEdit(): void{
-    this.router.navigate(['/person'], { state: {customData: this.person}});
+  onView(id:number): void{
+    this.router.navigateByUrl('/person/' + id);
   }
 }

@@ -13,8 +13,8 @@ import { Router } from "@angular/router";
 export class PersonService{
     //un service n'a pas de méthode  ngOnInit(), 
     //car les services ne sont pas instanciés de la même manière que les components. 
-    readonly  personUrl = "http://localhost:8080/person/";
-    readonly  personsUrl = "http://localhost:8080/persons/";
+    readonly  personUrl = "http://localhost:8081/person/";
+    readonly  personsUrl = "http://localhost:8081/persons/";
     
     constructor(private httpClient: HttpClient, private router:Router){
 
@@ -23,6 +23,10 @@ export class PersonService{
     getAllPersons(): Observable<Person[]> {
         return this.httpClient.get<Person[]>(this.personsUrl);
     }
+
+    getPersonById(id:number): Observable<Person> {
+      return this.httpClient.get<Person>(this.personUrl + id);
+  }
     
     delete(id: number):Observable<object> {
         return this.httpClient.delete(this.personUrl + id);

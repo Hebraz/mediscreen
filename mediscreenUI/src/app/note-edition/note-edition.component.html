@@ -1,0 +1,7 @@
+<form #noteForm="ngForm" (ngSubmit)="onSubmitForm(noteForm)" class="note-edition-form">
+    <textarea id="description" [(ngModel)]="note.description" name="description"></textarea>
+    <div class="button-layout">
+        <button  *ngIf="action==='Update'"  (click)="onCancel()">Cancel</button>
+        <button type="submit">{{ action }}</button>
+    </div>
+</form>

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Person } from '../models/person.model';
 import { PersonComponent } from '../person/person.component';
 import { PersonService } from '../services/person.service';
@@ -12,28 +13,30 @@ import { PersonService } from '../services/person.service';
 })
 export class PersonEditionComponent implements OnInit {
   
-  person!: Person;
-  public action!:String;
+  @Input() action!:string;
+  @Input() person!:Person;
 
   constructor(private personService: PersonService, 
     private router: Router) { }
 
   ngOnInit(): void {
-
-      this.person = window.history.state.customData
-      this.action = this.person.id === 0 ? "Create" : "Update";
   }
   
   onSubmitForm(form: NgForm):void {
-    if(this.action === "Create"){
+    if(this.action === "create"){
       this.personService.create(form.value).subscribe(() => this.router.navigateByUrl("/persons"));
-    } else if (this.action === "Update"){
-      this.personService.update(form.value).subscribe(() => this.router.navigateByUrl("/persons"));
+    } else if (this.action === "edit"){
+      this.personService.update(form.value).subscribe(() => this.router.navigateByUrl("/person/" + this.person.id));
     }
   }
   
-  onCancel(): void {
-    this.router.navigate(['/persons']);
+  onCancel(id:number): void {
+    if(this.action === "create"){
+      this.router.navigateByUrl("/persons");
+    } else {
+      this.router.navigateByUrl('/person/' + id);
+    }
+    
   }
 }
 

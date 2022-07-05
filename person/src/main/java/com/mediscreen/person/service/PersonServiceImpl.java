@@ -71,6 +71,16 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
+     * Get a person
+     * @param id of the person
+     * @return optional of Person
+     */
+    @Override
+    public Optional<Person> getPerson(int id){
+        return personRepository.findById(id);
+    }
+
+    /**
      * Gets person list from database.
      *
      * @return a list of person instances.
