@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-//@CrossOrigin(maxAge = 3600)
+@CrossOrigin(maxAge = 3600)
 public class PersonController {
 
     private final PersonService personService;

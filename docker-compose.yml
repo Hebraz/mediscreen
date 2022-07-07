@@ -1,0 +1,51 @@
+version: '3'
+services:
+  mediscreen-ui:
+    image: hebraz/mediscreen-ui
+    ports:
+      - "8080:80"
+
+  api-person:
+    image: hebraz/api-person
+    ports:
+      - "8081:8081"
+    networks:
+      - mediscreen
+    depends_on:
+      - mysqlhost
+
+  api-notes:
+    image: hebraz/api-notes
+    ports:
+      - "8082:8082"
+    networks:
+      - mediscreen
+    depends_on:
+      - mongohost
+  
+  mysqlhost:
+    image: mysql:8.0.17
+    networks:
+      - mediscreen
+    volumes:
+      - person-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootroot
+      - MYSQL_DATABASE=mediscreen  
+    
+  mongohost:
+    image: mongo:4.4.15
+    networks:
+      - mediscreen
+    volumes:
+      - notes-data:/data/db 
+
+volumes:
+  person-data:
+  notes-data:
+
+networks:
+  mediscreen:
+
+  
+
