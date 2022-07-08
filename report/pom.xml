@@ -9,20 +9,16 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.mediscreen</groupId>
-	<artifactId>notes</artifactId>
+	<artifactId>report</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>notes</name>
-	<description>Api for patient history</description>
+	<name>report</name>
+	<description>Report service - PRJ9 OC</description>
 	<properties>
 		<java.version>11</java.version>
 		<maven-surefire-report-plugin.version>2.21.0</maven-surefire-report-plugin.version>
 		<jacoco-maven-plugin.version>0.8.8</jacoco-maven-plugin.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-mongodb</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -38,23 +34,13 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
 		<dependency>
 			<groupId>org.jacoco</groupId>
 			<artifactId>jacoco-maven-plugin</artifactId>
 			<version>${jacoco-maven-plugin.version}</version>
 			<type>maven-plugin</type>
 		</dependency>
-		<dependency>
-			<groupId>de.flapdoodle.embed</groupId>
-			<artifactId>de.flapdoodle.embed.mongo</artifactId>
-			<scope>test</scope>
-		</dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>

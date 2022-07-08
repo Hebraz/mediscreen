@@ -1,8 +1,5 @@
 package com.mediscreen.notes.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,9 +7,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Calendar;
 
 @Document(collection = "notes")
 @Getter
