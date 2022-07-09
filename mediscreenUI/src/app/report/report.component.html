@@ -1,0 +1,4 @@
+<div *ngIf="report$ | async as report" class="report">
+    <p>Age:  <strong>{{ report.age }}</strong></p>
+    <p>Risk: <strong>{{ report.riskLevel }}</strong></p>
+</div>

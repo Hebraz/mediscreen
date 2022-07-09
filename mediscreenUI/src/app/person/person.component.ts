@@ -12,7 +12,6 @@ import { PersonService } from '../services/person.service';
 export class PersonComponent implements OnInit {
 
   @Input() person!: Person;
-
   public deleted!: boolean;
   constructor(private personService: PersonService, 
                 private route: ActivatedRoute,

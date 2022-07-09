@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 public class Report {
 
-    public Report(RiskLevel riskLevel, String patientFamilyName, String getPatientGivenName, int age, String sexe) {
+    public Report(RiskLevel riskLevel, String patientFamilyName, String patientGivenName, int age, String sexe) {
         this.riskLevel = riskLevel;
         this.patientFamilyName = patientFamilyName;
-        this.getPatientGivenName = getPatientGivenName;
+        this.patientGivenName = patientGivenName;
         this.age = age;
         this.sexe = sexe;
     }
@@ -20,7 +20,7 @@ public class Report {
 
     private RiskLevel riskLevel;
     private String patientFamilyName;
-    private String getPatientGivenName;
+    private String patientGivenName;
     private int age;
     private String sexe;
 }

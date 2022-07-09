@@ -15,6 +15,7 @@ import { PersonDetailsComponent } from './person-details/person-details.componen
 import { NoteEditionComponent } from './note-edition/note-edition.component';
 import { PersonCreationComponent } from './person-creation/person-creation.component';
 import { PersonUpdateComponent } from './person-update/person-update.component';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { PersonUpdateComponent } from './person-update/person-update.component';
     PersonDetailsComponent,
     NoteEditionComponent,
     PersonCreationComponent,
-    PersonUpdateComponent
+    PersonUpdateComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,

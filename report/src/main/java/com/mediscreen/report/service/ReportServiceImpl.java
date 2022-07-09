@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.security.auth.login.CredentialNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -68,7 +69,7 @@ public class ReportServiceImpl implements ReportService {
                 return RiskLevel.EARLY_ONSET;
             }
         } else {
-            if(sex == "H"){
+            if(sex.equals("H")){
                 if(nbTriggers == 0){
                     return  RiskLevel.NONE;
                 } else if(nbTriggers<3){
@@ -154,8 +155,13 @@ public class ReportServiceImpl implements ReportService {
         String uri = noteApiUrl +id;
         try{
             ResponseEntity<Note[]> responseEntity = restTemplate.getForEntity(uri, Note[].class);
-            return Arrays.stream(responseEntity.getBody())
-                    .collect(Collectors.toList());
+            if(responseEntity.getBody() != null){
+                return Arrays.stream(responseEntity.getBody())
+                        .collect(Collectors.toList());
+            } else {
+                return new ArrayList<>();
+            }
+
         } catch (Exception e){
             throw new NotFoundException(e.getMessage());
         }

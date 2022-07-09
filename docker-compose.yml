@@ -23,6 +23,13 @@ services:
     depends_on:
       - mongohost
   
+  api-report:
+    image: hebraz/api-report
+    ports:
+      - "8083:8083"
+    networks:
+      - mediscreen
+      
   mysqlhost:
     image: mysql:8.0.17
     networks:
