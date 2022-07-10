@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -133,5 +134,11 @@ class NoteControllerTest {
         mockMvc.perform(get("/patHistory/2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(4)));
+    }
+
+    @Test
+    void getNotesEmpty() throws Exception {
+        mockMvc.perform(get("/patHistory/8"))
+                .andExpect(status().isOk());
     }
 }

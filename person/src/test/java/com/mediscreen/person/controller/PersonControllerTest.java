@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-
+import static org.hamcrest.CoreMatchers.is;
 import java.util.Optional;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -93,5 +93,21 @@ class PersonControllerTest {
         mockMvc.perform(get("/persons"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(23)));
+    }
+
+    @Test
+    void getPersonFound() throws Exception {
+
+        mockMvc.perform(get("/person/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.familyName", is("Boyd")))
+                .andExpect(jsonPath("$.givenName", is("John")));
+    }
+
+    @Test
+    void getPersonNotFound() throws Exception {
+
+        mockMvc.perform(get("/person/789"))
+                .andExpect(status().isNotFound());
     }
 }

@@ -64,9 +64,20 @@ class ReportServiceImplTest {
         age30.add(Calendar.YEAR, -30);
         age31.add(Calendar.YEAR, -31);
         return Stream.of(
-                /*No notes => NONE*/
+                /*  > 30y and  < 1 triggers => NONE*/
+                Arguments.of(
+                        Person.builder().birthdate(age31).sex("F").build(),
+                        Arrays.asList(
+                                Note.builder().description("qjkfhd Hémoglobine A1C qjslfho zierozj sjlk").build()),
+                        RiskLevel.NONE),
+                /* H No notes => NONE*/
                 Arguments.of(
                         Person.builder().birthdate(age30).sex("H").build(),
+                        Arrays.asList(),
+                        RiskLevel.NONE),
+                /*F No notes => NONE*/
+                Arguments.of(
+                        Person.builder().birthdate(age30).sex("F").build(),
                         Arrays.asList(),
                         RiskLevel.NONE),
                 /*  > 30y and 2 triggers => BORDERLINE*/
@@ -91,6 +102,12 @@ class ReportServiceImplTest {
                         Arrays.asList(
                                 Note.builder().description("Poids Microalbumine A1C Taille Rechute sjlk").build()),
                         RiskLevel.IN_DANGER),
+                /* F <= 30y and 3 triggers => DANGER*/
+                Arguments.of(
+                        Person.builder().birthdate(age30).sex("F").build(),
+                        Arrays.asList(
+                                Note.builder().description("Microalbumine A1C Taille Rechute sjlk").build()),
+                        RiskLevel.BORDERLINE),
                 /* H/F > 30y and 6 triggers => DANGER*/
                 Arguments.of(
                         Person.builder().birthdate(age31).sex("F").build(),
@@ -109,12 +126,18 @@ class ReportServiceImplTest {
                         RiskLevel.EARLY_ONSET),
                 /* F <= 30y and 7 triggers => DANGER*/
                 Arguments.of(
-                        Person.builder().birthdate(age30).sex("H").build(),
+                        Person.builder().birthdate(age30).sex("F").build(),
                         Arrays.asList(
                                 Note.builder().description("qjkfhd Microalbumine A1C qjslfho Taille sjlk").build(),
                                 Note.builder().description("Vertige dfsz Réaction Anticorps").build(),
                                 Note.builder().description("dsqfd Cholestérol Hémoglobine A1C").build()),
                         RiskLevel.EARLY_ONSET),
+                /*  <>> 30y and  < 3 triggers => BORDERLINE*/
+                Arguments.of(
+                        Person.builder().birthdate(age30).sex("H").build(),
+                        Arrays.asList(
+                                Note.builder().description("qjkfhd Hémoglobine A1C qjslfho Anticorps sjlk").build()),
+                                RiskLevel.BORDERLINE),
                 /* H/F > 30y and 8 triggers => DANGER*/
                 Arguments.of(
                         Person.builder().birthdate(age31).sex("H").build(),
@@ -229,6 +252,24 @@ class ReportServiceImplTest {
         assertEquals("Note1", returnedNotes.get(0).getDescription());
         assertEquals("Note2", returnedNotes.get(1).getDescription());
         assertEquals("Note3", returnedNotes.get(2).getDescription());
+    }
+
+    @Test
+    void getNotesOkNoNOtes() throws NotFoundException {
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(MediaType.APPLICATION_JSON);
+        ResponseEntity<Note[]> responseEntity = new ResponseEntity<Note[]>(
+                null,
+                header,
+                HttpStatus.OK
+        );
+
+        when(restTemplate.getForEntity("http://localhost:8082/patHistory/1",Note[].class)).thenReturn(responseEntity);
+        ReflectionTestUtils.setField(reportService, "noteApiUrl","http://localhost:8082/patHistory/");
+        List<Note> returnedNotes = reportService.getNotes(1);
+
+        assertNotNull(returnedNotes);
+        assertEquals(0, returnedNotes.size());
     }
 
     @Test
